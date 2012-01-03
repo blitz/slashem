@@ -267,6 +267,12 @@ else
     AC_MSG_ERROR([need to enable at least one window system])
 fi
 
+dnl  ----- Give the past the finger
+AC_PROG_CC_C99
+
+if test "$ac_cv_prog_cc_c99" = "no"; then
+  AC_MSG_ERROR([$CC does not understand C99])
+fi
 
 dnl  ----- Check for header files
 AC_HEADER_STDC
@@ -294,7 +300,6 @@ if test "$have_regex_h" = "yes"; then
       ])
 fi
 AC_CHECK_TYPE(void,,AC_DEFINE(NOVOID, [], [No void type available]))
-
 
 dnl  ----- Check for library functions
 AC_CHECK_DECLS([strncmpi, strnicmp], AC_DEFINE(STRNCMPI, [], [Use strncmpi]))
