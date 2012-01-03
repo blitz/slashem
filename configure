@@ -5686,8 +5686,8 @@ fi
 
 
 
-if test "$ac_cv_prog_cc_c99" != "no"; then
-  as_fn_error $? "$CC doesn''t understand C99" "$LINENO" 5
+if test "$ac_cv_prog_cc_c99" = "no"; then
+  as_fn_error $? "$CC does not understand C99" "$LINENO" 5
 fi
 
 ac_ext=c
@@ -7079,9 +7079,6 @@ if test ! -f dat/gypsy.txt -o ${srcdir}/dat/gypsy.txt -nt dat/gypsy.txt ; then
 	fi
 if test ! -f win/share/tile_t.h -o ${srcdir}/win/share/tile_t.h -nt win/share/tile_t.h ; then
 	   NETHACK_LINKS="${NETHACK_LINKS} win/share/tile_t.h:win/share/tile_t.h"
-	fi
-if test ! -f include/win32api.h -o ${srcdir}/sys/winnt/win32api.h -nt include/win32api.h ; then
-	   NETHACK_LINKS="${NETHACK_LINKS} include/win32api.h:sys/winnt/win32api.h"
 	fi
 
 ac_config_links="$ac_config_links ${NETHACK_LINKS}"

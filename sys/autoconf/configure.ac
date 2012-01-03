@@ -418,7 +418,6 @@ NETHACK_LINKS_ADD([dat/opthelp])
 NETHACK_LINKS_ADD([dat/wizhelp])
 NETHACK_LINKS_ADD([dat/gypsy.txt])
 NETHACK_LINKS_ADD([win/share/tile_t.h])
-NETHACK_LINKS_ADD([include/win32api.h:sys/winnt/win32api.h])
 
 AC_CONFIG_LINKS(${NETHACK_LINKS})
 
