@@ -194,14 +194,6 @@ typedef xchar	boolean;		/* 0 or 1 */
 #include "beconf.h"
 #endif
 
-#ifdef WIN32
-#ifdef WIN_CE
-#include "wceconf.h"
-#else
-#include "ntconf.h"
-#endif
-#endif
-
 #ifndef FILE_AREAS
 
 #define fopen_datafile_area(area, filename, mode, use_spfx) \

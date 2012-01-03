@@ -34,7 +34,6 @@ if test "$enable_gl_graphics" != no -a "$enable_sdl_graphics" = no; then
     enable_sdl_graphics="yes"
     nethack_wins=`echo $nethack_wins | sed 's/^gl/gl sdl/'`
 fi
-NETHACK_WIN_ENABLE(mswin, no, [use Microsoft Window's native graphics])
 
 dnl  ----- Figure out a C compiler to use; set @CC@
 AC_PROG_CC
@@ -55,13 +54,6 @@ fi
 
 dnl  ------ Main OS types
 case $host_os in
-     mingw32 )		AC_DEFINE(WIN32,[],[An MS-Windows system])
-			AC_SUBST(HOST_MSWIN,[])
-			AC_SUBST(HOST_UNIX,[#])
-			SYSTEM="Syswinnt"
-			SYSSRC="\${SYSMSWINSRC}"
-			SYSOBJ="\${SYSMSWINOBJ}"
-			;;
      *bsd* )		AC_DEFINE(BSD,[],[A BSD like system])
 			AC_SUBST(HOST_MSWIN,[#])
 			AC_SUBST(HOST_UNIX,[])
@@ -80,22 +72,6 @@ esac
 AC_SUBST(SYSTEM)
 AC_SUBST(SYSSRC)
 AC_SUBST(SYSOBJ)
-
-if test $host_os = mingw32; then
-    AC_MSG_CHECKING([for how to build NetHack key dynamic libraries])
-    if test "$GCC" = yes; then
-	AC_MSG_RESULT([gcc])
-	AC_SUBST(NHKEYDLL_GCC,[])
-    else
-	AC_MSG_RESULT([unknown])
-	if test "$enable_tty_graphics" = yes; then
-	    AC_MSG_ERROR([Don't know how to build NetHack key DLLs with $CC])
-	else
-	    AC_MSG_WARN([Can't enable tty graphics (key dynamic libraries)])
-	    NETHACK_AUTO_WIN_DISABLE(tty)
-	fi
-    fi
-fi
 
 dnl ------ Common subtypes
 case $host_os in
@@ -126,15 +102,6 @@ CNF_SHARE_DATND=
 
 WINTTYLIB=
 if test "$enable_tty_graphics" != "no"; then
-    if test $host_os = mingw32; then
-	AC_SUBST(EXTRA_UNSHARE,[nhdefkey.dll nh340key.dll nhraykey.dll])
-	CFLAGS="$CFLAGS -DWIN32CON"
-	WINTTYLIB=""
-	WINSRC="${WINSRC} \$(WINTTYSRC)"
-	WINOBJ="${WINOBJ} \$(WINTTYOBJ)"
-	WINLIB="${WINLIB} \$(WINTTYLIB)"
-	AC_DEFINE(TTY_GRAPHICS, [], [Console output])
-    else
 	# For TTY, determine the termlib
 	# Check for termlib before termcap because Solaris termcap needs libucb.
 	TERMLIB_VARIANTS="ncurses curses termlib termcap terminfo"
@@ -155,10 +122,6 @@ if test "$enable_tty_graphics" != "no"; then
 		NETHACK_AUTO_WIN_DISABLE(tty)
 	    fi
 	fi
-    fi
-fi
-if test "$enable_tty_graphics" = "no" -a $host_os = mingw32; then
-    LFLAGS="$LFLAGS -mwindows"
 fi
 AC_SUBST(WINTTYLIB)
 
@@ -236,18 +199,6 @@ dnl CHECK FOR libpng
 fi
 AC_SUBST(SDL_CONFIG_CFLAGS)
 AC_SUBST(SDL_CONFIG_LIBS)
-
-if test "$enable_mswin_graphics" != "no"; then
-    if test "$WINDRES" = "no"; then
-	AC_MSG_ERROR([Need windres for Microsoft Window's native graphics])
-    fi
-    WINSRC="${WINSRC} \$(WINMSSRC)"
-    WINOBJ="${WINOBJ} \$(WINMSOBJ)"
-    WINLIB="${WINLIB} \$(WINMSLIB)"
-    CNF_SHARE_DATND="${CNF_SHARE_DATND} \$(CNF_SHARE_MSND)"
-    AC_DEFINE(MSWIN_GRAPHICS, [], [Microsoft Window's native graphics])
-fi
-
 
 AC_SUBST(WINSRC)
 AC_SUBST(WINOBJ)

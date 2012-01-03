@@ -125,9 +125,6 @@
 /* TTY graphics menu color */
 #undef MENU_COLOR
 
-/* Microsoft Window's native graphics */
-#undef MSWIN_GRAPHICS
-
 /* Prevent wishing for special artifacts */
 #undef NOARTIFACTWISH
 
@@ -224,9 +221,6 @@
 
 /* Fancy mazes */
 #undef WALLIFIED_MAZE
-
-/* An MS-Windows system */
-#undef WIN32
 
 /* The person allowed to use the -D option */
 #undef WIZARD

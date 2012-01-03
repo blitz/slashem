@@ -619,7 +619,6 @@ SDL_CONFIG
 NETHACK_PROXY_LIBS
 NETHACK_PROXY_CFLAGS
 WINTTYLIB
-EXTRA_UNSHARE
 NETHACK_LIBPNG_LIBS
 NETHACK_LIBPNG_CFLAGS
 NETHACK__LIBPNG_LIBS
@@ -634,7 +633,6 @@ YACC
 LEXLIB
 LEX_OUTPUT_ROOT
 LEX
-NHKEYDLL_GCC
 SYSOBJ
 SYSSRC
 SYSTEM
@@ -715,7 +713,6 @@ enable_tty_graphics
 enable_x11_graphics
 enable_sdl_graphics
 enable_gl_graphics
-enable_mswin_graphics
 with_compression
 enable_data_librarian
 enable_sinks
@@ -1405,7 +1402,6 @@ Optional Features:
   --enable-x11-graphics   use x11-graphics (default=no)
   --enable-sdl-graphics   use sdl-graphics (default=no)
   --enable-gl-graphics    use gl-graphics (enables sdl-graphics) (default=no)
-  --enable-mswin-graphics use Microsoft Window's native graphics (default=no)
   --enable-data-librarian Data librarian (default=auto)
   --enable-sinks          Kitchen sinks (default=yes)
   --enable-light-src-spell
@@ -2469,16 +2465,6 @@ if test "$enable_gl_graphics" != no -a "$enable_sdl_graphics" = no; then
     enable_sdl_graphics="yes"
     nethack_wins=`echo $nethack_wins | sed 's/^gl/gl sdl/'`
 fi
-# Check whether --enable-mswin-graphics was given.
-if test "${enable_mswin_graphics+set}" = set; then :
-  enableval=$enable_mswin_graphics; enable_mswin_graphics="$enableval"
-else
-  enable_mswin_graphics="no"
-fi
-
-  if test "$enable_mswin_graphics" != "no"; then
-    nethack_wins="mswin $nethack_wins"
-  fi
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -3685,16 +3671,6 @@ $as_echo "${LIBXAW_LIBS}" >&6; }
 fi
 
 case $host_os in
-     mingw32 )
-$as_echo "#define WIN32 /**/" >>confdefs.h
-
-
-			HOST_UNIX=#
-
-			SYSTEM="Syswinnt"
-			SYSSRC="\${SYSMSWINSRC}"
-			SYSOBJ="\${SYSMSWINOBJ}"
-			;;
      *bsd* )
 $as_echo "#define BSD /**/" >>confdefs.h
 
@@ -3719,28 +3695,6 @@ esac
 
 
 
-
-if test $host_os = mingw32; then
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for how to build NetHack key dynamic libraries" >&5
-$as_echo_n "checking for how to build NetHack key dynamic libraries... " >&6; }
-    if test "$GCC" = yes; then
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: gcc" >&5
-$as_echo "gcc" >&6; }
-
-    else
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: unknown" >&5
-$as_echo "unknown" >&6; }
-	if test "$enable_tty_graphics" = yes; then
-	    as_fn_error $? "Don't know how to build NetHack key DLLs with $CC" "$LINENO" 5
-	else
-	    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Can't enable tty graphics (key dynamic libraries)" >&5
-$as_echo "$as_me: WARNING: Can't enable tty graphics (key dynamic libraries)" >&2;}
-	    enable_tty_graphics="no"
-    nethack_wins=`echo $nethack_wins | sed 's/tty //'`
-
-	fi
-    fi
-fi
 
 case $host_os in
      *cygwin* )
@@ -4969,18 +4923,6 @@ CNF_SHARE_DATND=
 
 WINTTYLIB=
 if test "$enable_tty_graphics" != "no"; then
-    if test $host_os = mingw32; then
-	EXTRA_UNSHARE=nhdefkey.dll nh340key.dll nhraykey.dll
-
-	CFLAGS="$CFLAGS -DWIN32CON"
-	WINTTYLIB=""
-	WINSRC="${WINSRC} \$(WINTTYSRC)"
-	WINOBJ="${WINOBJ} \$(WINTTYOBJ)"
-	WINLIB="${WINLIB} \$(WINTTYLIB)"
-
-$as_echo "#define TTY_GRAPHICS /**/" >>confdefs.h
-
-    else
 	# For TTY, determine the termlib
 	# Check for termlib before termcap because Solaris termcap needs libucb.
 	TERMLIB_VARIANTS="ncurses curses termlib termcap terminfo"
@@ -5046,10 +4988,6 @@ $as_echo "$as_me: WARNING: Can't enable tty graphics (no tgetent)" >&2;}
 
 	    fi
 	fi
-    fi
-fi
-if test "$enable_tty_graphics" = "no" -a $host_os = mingw32; then
-    LFLAGS="$LFLAGS -mwindows"
 fi
 
 
@@ -5468,20 +5406,6 @@ fi
   fi
 fi
 
-
-
-if test "$enable_mswin_graphics" != "no"; then
-    if test "$WINDRES" = "no"; then
-	as_fn_error $? "Need windres for Microsoft Window's native graphics" "$LINENO" 5
-    fi
-    WINSRC="${WINSRC} \$(WINMSSRC)"
-    WINOBJ="${WINOBJ} \$(WINMSOBJ)"
-    WINLIB="${WINLIB} \$(WINMSLIB)"
-    CNF_SHARE_DATND="${CNF_SHARE_DATND} \$(CNF_SHARE_MSND)"
-
-$as_echo "#define MSWIN_GRAPHICS /**/" >>confdefs.h
-
-fi
 
 
 
