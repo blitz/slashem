@@ -32,7 +32,7 @@ CC = @CC@ -DAUTOCONF
 WINDRES = @WINDRES@
 
 CFLAGS = -O -I../include -I$(srcdir)/../include @CFLAGS@
-LFLAGS = @LFLAGS@
+LFLAGS = @LDFLAGS@ @LFLAGS@
 
 # Only used for the Gnome interface.
 GNOMEINC=`gnome-config gnome --cflags` -I$(srcdir)/../win/gnome
