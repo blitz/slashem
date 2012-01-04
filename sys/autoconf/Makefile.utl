@@ -97,7 +97,7 @@ CC = @CC_FOR_BUILD@ -DAUTOCONF
 # flags for debugging:
 # CFLAGS = -g -I../include -I$(srcdir)/../include
 
-CFLAGS = -O -I../include -I$(srcdir)/../include @CFLAGS@
+CFLAGS = -O -I../include -I$(srcdir)/../include
 LFLAGS =
 
 LIBS =
@@ -184,7 +184,7 @@ YACCDIST =
 #	dependencies for makedefs
 #
 makedefs:	$(MAKEOBJS)
-	$(CC) $(LFLAGS) -o makedefs $(MAKEOBJS)
+	$(CC) $(CFLAGS) $(LFLAGS) -o makedefs $(MAKEOBJS)
 
 makedefs.o: makedefs.c $(CONFIG_H) $(srcdir)/../include/permonst.h \
 		$(srcdir)/../include/objclass.h $(srcdir)/../include/monsym.h \
@@ -430,7 +430,7 @@ monst.o: $(srcdir)/../src/monst.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/monst.c -o $@
 objects.o: $(srcdir)/../src/objects.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/objects.c -o $@
-$(OBJDIR)/dlb.o: $(srcdir)/../src/dlb.c $(HACK_H) ../include/dlb.h
+dlb.o: $(srcdir)/../src/dlb.c $(HACK_H) ../include/dlb.h
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/dlb.c -o $@
 
 # make sure hack.h dependencies get transitive information
