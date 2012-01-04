@@ -37,6 +37,9 @@ fi
 
 dnl  ----- Figure out a C compiler to use; set @CC@
 AC_PROG_CC
+AC_PROG_CC_STDC
+dnl AC_PROG_CC_C99
+NETHACK_PROG_CC_FOR_BUILD
 AC_SUBST(LFLAGS)
 
 dnl  ----- Check OS
@@ -218,15 +221,8 @@ else
     AC_MSG_ERROR([need to enable at least one window system])
 fi
 
-dnl  ----- Give the past the finger
-AC_PROG_CC_C99
-
-if test "$ac_cv_prog_cc_c99" = "no"; then
-  AC_MSG_ERROR([$CC does not understand C99])
-fi
-
 dnl  ----- Check for header files
-AC_HEADER_STDC
+
 # Due to what may be a bug in autoconf, we have to call AC_CHECK_HEADERS()
 # to get the various HAVE_xxx_H preprocessor variables detected by
 # AC_HEADER_STDC active. These are needed for AC_CHECK_DECLS(), below.

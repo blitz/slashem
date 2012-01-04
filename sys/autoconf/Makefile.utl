@@ -19,7 +19,7 @@ srcdir=@srcdir@
 # MAKE = make
 
 EXEEXT = @EXEEXT@
-CC = @CC@ -DAUTOCONF
+CC = @CC_FOR_BUILD@ -DAUTOCONF
 
 # if you are using gcc as your compiler,
 #	uncomment the CC definition below if it's not in your environment
@@ -146,13 +146,13 @@ UTILSRCS = $(MAKESRC) panic.c $(SPLEVSRC) $(DGNCOMPSRC) $(RECOVSRC) $(DLBSRC)
 
 # files that define all monsters and objects
 CMONOBJ = $(srcdir)/../src/monst.c $(srcdir)/../src/objects.c
-OMONOBJ = $(OBJDIR)/monst.o $(OBJDIR)/objects.o
+OMONOBJ = monst.o objects.o
 # files that provide access to NetHack's names
 CNAMING = $(srcdir)/../src/drawing.c $(srcdir)/../src/decl.c $(CMONOBJ)
-ONAMING = $(OBJDIR)/drawing.o $(OBJDIR)/decl.o $(OMONOBJ)
+ONAMING = drawing.o decl.o $(OMONOBJ)
 # dynamic memory allocation
-CALLOC = $(srcdir)/../src/alloc.c panic.c
-OALLOC = $(OBJDIR)/alloc.o panic.o
+CALLOC = panic.c
+OALLOC = panic.o
 
 # object files for makedefs
 MAKEOBJS = makedefs.o $(OMONOBJ) $(OALLOC)
@@ -422,15 +422,13 @@ tile2png.o: $(srcdir)/../win/share/tile2png.c $(HACK_H) ../include/tile.h
 
 # make sure object files from src are available when needed
 #
-$(OBJDIR)/alloc.o: $(srcdir)/../src/alloc.c $(CONFIG_H)
-	$(CC) $(CFLAGS) -c $(srcdir)/../src/alloc.c -o $@
-$(OBJDIR)/drawing.o: $(srcdir)/../src/drawing.c $(CONFIG_H)
+drawing.o: $(srcdir)/../src/drawing.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/drawing.c -o $@
-$(OBJDIR)/decl.o: $(srcdir)/../src/decl.c $(CONFIG_H)
+decl.o: $(srcdir)/../src/decl.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/decl.c -o $@
-$(OBJDIR)/monst.o: $(srcdir)/../src/monst.c $(CONFIG_H)
+monst.o: $(srcdir)/../src/monst.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/monst.c -o $@
-$(OBJDIR)/objects.o: $(srcdir)/../src/objects.c $(CONFIG_H)
+objects.o: $(srcdir)/../src/objects.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/objects.c -o $@
 $(OBJDIR)/dlb.o: $(srcdir)/../src/dlb.c $(HACK_H) ../include/dlb.h
 	$(CC) $(CFLAGS) -c $(srcdir)/../src/dlb.c -o $@
