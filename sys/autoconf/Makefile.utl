@@ -191,6 +191,7 @@ makedefs.o: makedefs.c $(CONFIG_H) $(srcdir)/../include/permonst.h \
 		$(srcdir)/../include/artilist.h $(srcdir)/../include/dungeon.h $(srcdir)/../include/obj.h \
 		$(srcdir)/../include/monst.h $(srcdir)/../include/you.h $(srcdir)/../include/flag.h \
 		$(srcdir)/../include/dlb.h $(srcdir)/../include/patchlevel.h $(srcdir)/../include/qtext.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 ../include/onames.h: makedefs
 	./makedefs -o
@@ -214,7 +215,7 @@ lintdefs:
 
 # support code used by several of the utility programs (but not makedefs)
 panic.o:     panic.c $(CONFIG_H)
-
+	$(CC) $(CFLAGS) -c $< -o $@
 
 #	dependencies for lev_comp
 #
