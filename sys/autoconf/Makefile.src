@@ -21,9 +21,9 @@ SYSUNIXOBJ = ioctl.o unixmain.o unixtty.o unixunix.o unixres.o
 # for Microsoft Window systems
 SYSMSWINSRC = $(srcdir)/../sys/winnt/nttty.c $(srcdir)/../sys/winnt/winnt.c \
 	$(srcdir)/../sys/share/pcsys.c $(srcdir)/../sys/share/pcunix.c \
-	$(srcdir)/../sys/share/pcmain.c $(srcdir)/../sys/share/random.c \
+	$(srcdir)/../sys/share/pcmain.c \
 	$(srcdir)/../sys/share/nhlan.c
-SYSMSWINOBJ = nttty.o winnt.o pcsys.o pcunix.o pcmain.o random.o nhlan.o
+SYSMSWINOBJ = nttty.o winnt.o pcsys.o pcunix.o pcmain.o nhlan.o
 #
 SYSSRC=@SYSSRC@
 SYSOBJ=@SYSOBJ@
@@ -213,7 +213,7 @@ HACKCSRC = $(srcdir)/allmain.c $(srcdir)/alloc.c $(srcdir)/apply.c \
 SYSCSRC = $(srcdir)/../sys/share/nhlan.c $(srcdir)/../sys/share/ioctl.c \
 	$(srcdir)/../sys/share/pcmain.c $(srcdir)/../sys/share/pcsys.c \
 	$(srcdir)/../sys/share/pctty.c $(srcdir)/../sys/share/pcunix.c \
-	$(srcdir)/../sys/share/random.c $(srcdir)/../sys/share/unixtty.c \
+	$(srcdir)/../sys/share/unixtty.c \
 	$(srcdir)/../sys/atari/tos.c $(srcdir)/../sys/be/bemain.c \
 	$(srcdir)/../sys/unix/unixmain.c $(srcdir)/../sys/unix/unixres.c \
 	$(srcdir)/../sys/unix/unixunix.c $(srcdir)/../sys/winnt/nttty.c \
@@ -510,8 +510,6 @@ pctty.o: $(srcdir)/../sys/share/pctty.c $(HACK_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/pctty.c
 pcunix.o: $(srcdir)/../sys/share/pcunix.c $(HACK_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/pcunix.c
-random.o: $(srcdir)/../sys/share/random.c $(HACK_H)
-	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/random.c
 unixtty.o: $(srcdir)/../sys/share/unixtty.c $(HACK_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/unixtty.c
 tos.o: $(srcdir)/../sys/atari/tos.c $(HACK_H) ../include/tcap.h

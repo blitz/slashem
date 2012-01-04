@@ -89,25 +89,6 @@ typedef long	off_t;
 
 #if !defined(__cplusplus) && !defined(__GO32__)
 
-#if defined(BSD) || defined(ULTRIX) || defined(RANDOM)
-# ifdef random
-# undef random
-# endif
-# if !defined(__SC__) && !defined(__CYGWIN__) && !defined(LINUX)
-E  long NDECL(random);
-# endif
-# if (!defined(SUNOS4) && !defined(bsdi) && !defined(__FreeBSD__)) || defined(RANDOM)
-E void FDECL(srandom, (unsigned int));
-# else
-#  if !defined(bsdi) && !defined(LINUX) && !defined(__CYGWIN__) && !defined(__FreeBSD__)
-E int FDECL(srandom, (unsigned int));
-#  endif
-# endif
-#else
-E long FDECL(lrand48, (void));
-E void FDECL(srand48, (long));
-#endif /* BSD || ULTRIX || RANDOM */
-
 #if !defined(BSD) || defined(ultrix)
 			/* real BSD wants all these to return int */
 # ifndef MICRO
