@@ -557,15 +557,8 @@ int	mntmp;
 	u.mh = u.mhmax;
 
 	if (u.ulevel < mlvl) {
-	/* Low level characters can't become high level monsters for long */
-#ifdef DUMB
-		/* DRS/NS 2.2.6 messes up -- Peter Kendell */
-		int mtd = u.mtimedone, ulv = u.ulevel;
-
-		u.mtimedone = mtd * ulv / mlvl;
-#else
+		/* Low level characters can't become high level monsters for long */
 		u.mtimedone = u.mtimedone * u.ulevel / mlvl;
-#endif
 	}
 
 #ifdef EATEN_MEMORY

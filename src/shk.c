@@ -1096,15 +1096,7 @@ register struct obj *obj, *merge;
 			/* this was a merger */
 			bpm->bquan += bp->bquan;
 			ESHK(shkp)->billct--;
-#ifdef DUMB
-			{
-			/* DRS/NS 2.2.6 messes up -- Peter Kendell */
-				int indx = ESHK(shkp)->billct;
-				*bp = ESHK(shkp)->bill_p[indx];
-			}
-#else
 			*bp = ESHK(shkp)->bill_p[ESHK(shkp)->billct];
-#endif
 		}
 	}
 	dealloc_obj(obj);

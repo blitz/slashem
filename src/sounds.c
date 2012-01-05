@@ -35,10 +35,8 @@ static const char *FDECL(whimper_sound,(struct monst *));
 
 #ifdef OVL0
 
-#ifdef DUMB
 static int FDECL(mon_in_room, (struct monst *,int));
 
-/* this easily could be a macro, but it might overtax dumb compilers */
 static int
 mon_in_room(mon, rmtyp)
 struct monst *mon;
@@ -48,11 +46,6 @@ int rmtyp;
 
     return rooms[rno - ROOMOFFSET].rtype == rmtyp;
 }
-#else
-/* JRN: converted above to macro */
-# define mon_in_room(mon,rmtype) (rooms[ levl[(mon)->mx][(mon)->my].roomno \
-					- ROOMOFFSET].rtype == (rmtype))
-#endif
 
 void
 dosounds()
