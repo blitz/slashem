@@ -839,16 +839,7 @@ tty_askname()
 		if(c < 'A' || (c > 'Z' && c < 'a') || c > 'z') c = '_';
 #endif
 		if (ct < (int)(sizeof plname) - 1) {
-#if defined(MICRO)
-# if defined(MSDOS)
-			if (iflags.grmode) {
-				(void) putchar(c);
-			} else
-# endif
-			msmsg("%c", c);
-#else
 			(void) putchar(c);
-#endif
 			plname[ct++] = c;
 #ifdef WIN32CON
 			ttyDisplay->curx++;
@@ -868,7 +859,7 @@ tty_get_nh_event()
     return;
 }
 
-#if !defined(MICRO) && !defined(WIN32CON)
+#if !defined(WIN32CON)
 STATIC_OVL void
 getret()
 {
@@ -2728,7 +2719,7 @@ tty_raw_print(str)
     const char *str;
 {
     if(ttyDisplay) ttyDisplay->rawprint++;
-#if defined(MICRO) || defined(WIN32CON)
+#if defined(WIN32CON)
     msmsg("%s\n", str);
 #else
     puts(str); (void) fflush(stdout);
