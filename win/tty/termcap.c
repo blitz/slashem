@@ -10,6 +10,14 @@
 
 #include "tcap.h"
 
+/* Provide prototypes here because including the right header produces
+   name clashes. */
+extern int tgetent(char *bp, const char *name);
+extern int tgetflag(char *id);
+extern int tgetnum(char *id);
+extern char *tgetstr(char *id, char **area);
+extern char *tgoto(const char *cap, int col, int row);
+extern int tputs(const char *str, int affcnt, int (*putc)(int));
 
 #define Tgetstr(key) (tgetstr(key,&tbufptr))
 
