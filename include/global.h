@@ -148,36 +148,10 @@ typedef xchar	boolean;		/* 0 or 1 */
  * Please don't change the order.  It does matter.
  */
 
-#ifdef VMS
-#include "vmsconf.h"
-#endif
-
 #ifdef UNIX
 #include "unixconf.h"
-#endif
-
-#ifdef OS2
-#include "os2conf.h"
-#endif
-
-#ifdef MSDOS
-#include "pcconf.h"
-#endif
-
-#ifdef TOS
-#include "tosconf.h"
-#endif
-
-#ifdef AMIGA
-#include "amiconf.h"
-#endif
-
-#ifdef MAC
-#include "macconf.h"
-#endif
-
-#ifdef __BEOS__
-#include "beconf.h"
+#else
+#error Only UNIX build is supported.
 #endif
 
 #ifndef FILE_AREAS

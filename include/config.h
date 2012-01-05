@@ -189,12 +189,7 @@
  */
 
 #ifndef WIZARD		/* allow for compile-time or Makefile changes */
-# ifndef KR1ED
 #  define WIZARD  "wizard" /* the person allowed to use the -D option */
-# else
-#  define WIZARD
-#  define WIZARD_NAME "wizard"
-# endif
 #endif
 
 #define LOGFILE "logfile"	/* larger file for debugging purposes */
@@ -286,13 +281,6 @@
  *		For example, both schar and uchar should be short ints on
  *		the AT&T 3B2/3B5/etc. family.
  */
-
-/*
- * Uncomment the following line if your compiler falsely claims to be
- * a standard C compiler (i.e., defines __STDC__ without cause).
- * Examples are Apollo's cc (in some versions) and possibly SCO UNIX's rcc.
- */
-/* #define NOTSTDC */			/* define for lying compilers */
 
 #include "tradstdc.h"
 

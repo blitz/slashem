@@ -21,9 +21,8 @@ SYSUNIXOBJ = ioctl.o unixmain.o unixtty.o unixunix.o unixres.o
 # for Microsoft Window systems
 SYSMSWINSRC = $(srcdir)/../sys/winnt/nttty.c $(srcdir)/../sys/winnt/winnt.c \
 	$(srcdir)/../sys/share/pcsys.c $(srcdir)/../sys/share/pcunix.c \
-	$(srcdir)/../sys/share/pcmain.c \
 	$(srcdir)/../sys/share/nhlan.c
-SYSMSWINOBJ = nttty.o winnt.o pcsys.o pcunix.o pcmain.o nhlan.o
+SYSMSWINOBJ = nttty.o winnt.o pcsys.o pcunix.o nhlan.o
 #
 SYSSRC=@SYSSRC@
 SYSOBJ=@SYSOBJ@
@@ -211,7 +210,7 @@ HACKCSRC = $(srcdir)/allmain.c $(srcdir)/alloc.c $(srcdir)/apply.c \
 
 # all operating-system-dependent .c (for dependencies and such)
 SYSCSRC = $(srcdir)/../sys/share/nhlan.c $(srcdir)/../sys/share/ioctl.c \
-	$(srcdir)/../sys/share/pcmain.c $(srcdir)/../sys/share/pcsys.c \
+	$(srcdir)/../sys/share/pcsys.c \
 	$(srcdir)/../sys/share/pctty.c $(srcdir)/../sys/share/pcunix.c \
 	$(srcdir)/../sys/share/unixtty.c \
 	$(srcdir)/../sys/atari/tos.c $(srcdir)/../sys/be/bemain.c \
@@ -239,14 +238,14 @@ CSOURCES = $(HACKCSRC) $(SYSSRC) $(WINCSRC) $(GENCSRC)
 # cause dependency loops if run through "make depend"
 # and dgn_comp.h, dgn_file.h, lev_comp.h, special level & dungeon files.
 #
-HACKINCL = align.h amiconf.h artifact.h artilist.h attrib.h beconf.h color.h \
-	config.h config1.h coord.h decl.h def_os2.h display.h dlb.h dungeon.h \
+HACKINCL = align.h artifact.h artilist.h attrib.h color.h \
+	config.h config1.h coord.h decl.h display.h dlb.h dungeon.h \
 	edog.h emin.h engrave.h epri.h eshk.h extern.h flag.h func_tab.h \
-	global.h autoconf.h hack.h lev.h macconf.h mfndpos.h micro.h mkroom.h \
+	global.h autoconf.h hack.h lev.h mfndpos.h micro.h mkroom.h \
 	monattk.h mondata.h monflag.h monst.h monsym.h obj.h objclass.h \
-	os2conf.h patchlevel.h pcconf.h permonst.h prop.h rect.h region.h rm.h \
-	sp_lev.h spell.h system.h tcap.h timeout.h tosconf.h tradstdc.h \
-	trampoli.h trap.h unixconf.h vault.h vision.h vmsconf.h wintty.h \
+	patchlevel.h permonst.h prop.h rect.h region.h rm.h \
+	sp_lev.h spell.h system.h tcap.h timeout.h tradstdc.h \
+	trampoli.h trap.h unixconf.h vault.h vision.h wintty.h \
 	winX.h winprocs.h wintype.h you.h youprop.h
 
 HSOURCES = $(HACKINCL) date.h onames.h pm.h vis_tab.h\
@@ -474,10 +473,9 @@ depend: ../sys/autoconf/depend.awk \
 
 # config.h timestamp
 $(CONFIG_H): ../include/config.h ../include/config1.h ../include/tradstdc.h \
-		../include/global.h ../include/coord.h ../include/vmsconf.h \
-		../include/system.h ../include/unixconf.h ../include/os2conf.h \
-		../include/micro.h ../include/pcconf.h ../include/tosconf.h \
-		../include/amiconf.h ../include/macconf.h ../include/beconf.h \
+		../include/global.h ../include/coord.h \
+		../include/system.h ../include/unixconf.h \
+		../include/micro.h \
 		../include/nhlan.h \
 		../include/autoconf.h
 	touch $(CONFIG_H)
@@ -501,9 +499,6 @@ nhlan.o: $(srcdir)/../sys/share/nhlan.c $(HACK_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/nhlan.c
 ioctl.o: $(srcdir)/../sys/share/ioctl.c $(HACK_H) ../include/tcap.h
 	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/ioctl.c
-pcmain.o: $(srcdir)/../sys/share/pcmain.c $(HACK_H) ../include/dlb.h \
-		../include/patchlevel.h #../include/win32api.h
-	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/pcmain.c
 pcsys.o: $(srcdir)/../sys/share/pcsys.c $(HACK_H)
 	$(CC) $(CFLAGS) -c $(srcdir)/../sys/share/pcsys.c
 pctty.o: $(srcdir)/../sys/share/pctty.c $(HACK_H)
