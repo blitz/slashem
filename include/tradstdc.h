@@ -15,20 +15,6 @@
 #define NHSTDC
 #endif
 
-#if defined(ultrix) && defined(__STDC__) && !defined(__LANGUAGE_C)
-/* Ultrix seems to be in a constant state of flux.  This check attempts to
- * set up ansi compatibility if it wasn't set up correctly by the compiler.
- */
-#ifdef mips
-#define __mips mips
-#endif
-
-#ifdef LANGUAGE_C
-#define __LANGUAGE_C LANGUAGE_C
-#endif
-
-#endif
-
 /*
  * ANSI X3J11 detection.
  * Makes substitutes for compatibility with the old C standard.
@@ -46,10 +32,6 @@
 
 /* #define USE_VARARGS */	/* use <varargs.h> instead of <stdarg.h> */
 /* #define USE_OLDARGS */	/* don't use any variable argument facilites */
-
-#if defined(apollo)             /* Apollos have stdarg(3) but not stdarg.h */
-# define USE_VARARGS
-#endif
 
 #if defined(NHSTDC) || defined(ULTRIX_PROTO) || defined(MAC)
 # if !defined(USE_VARARGS) && !defined(USE_OLDARGS) && !defined(USE_STDARG)
@@ -240,14 +222,6 @@ typedef genericptr genericptr_t;	/* (void *) or (char *) */
 # define VDECL(f,p)	f()
 #endif
 #endif
-
-
-	/* MetaWare High-C defaults to unsigned chars */
-	/* AIX 3.2 needs this also */
-#if defined(__HC__) || defined(_AIX32)
-# undef signed
-#endif
-
 
 /*
  * Allow gcc2 to check parameters of printf-like calls with -Wformat;
