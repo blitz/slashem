@@ -126,28 +126,9 @@ long FDECL(dlb_ftell, (DLB_P));
 
 /* various other I/O stuff we don't want to replicate everywhere */
 
-#ifndef SEEK_SET
-# define SEEK_SET 0
-#endif
-#ifndef SEEK_CUR
-# define SEEK_CUR 1
-#endif
-#ifndef SEEK_END
-# define SEEK_END 2
-#endif
-
 #define RDTMODE "r"
-#if (defined(MSDOS) || defined(WIN32) || defined(TOS) || defined(OS2)) && defined(DLB)
-#define WRTMODE "w+b"
-#else
 #define WRTMODE "w+"
-#endif
-#if (defined(MICRO) && !defined(AMIGA)) || defined(THINK_C) || defined(__MWERKS__) || defined(WIN32)
-# define RDBMODE "rb"
-# define WRBMODE "w+b"
-#else
-# define RDBMODE "r"
-# define WRBMODE "w+"
-#endif
+#define RDBMODE "r"
+#define WRBMODE "w+"
 
 #endif	/* DLB_H */
