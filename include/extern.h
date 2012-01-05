@@ -9,9 +9,6 @@
 
 /* ### alloc.c ### */
 
-#if 0
-E long *FDECL(alloc, (unsigned int));
-#endif
 E char *FDECL(fmt_ptr, (const genericptr,char *));
 
 /* This next pre-processor directive covers almost the entire file,
@@ -706,7 +703,7 @@ E void NDECL(set_savefile_name);
 #ifdef INSURANCE
 E void FDECL(save_savefile_name, (int));
 #endif
-#if defined(WIZARD) && !defined(MICRO)
+#if defined(WIZARD)
 E void NDECL(set_error_savefile);
 #endif
 E int NDECL(create_savefile);
@@ -1330,7 +1327,7 @@ E struct monst *FDECL(mk_mplayer, (struct permonst *,XCHAR_P,
 E void FDECL(create_mplayers, (int,BOOLEAN_P));
 E void FDECL(mplayer_talk, (struct monst *));
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 
 /* ### msdos.c,os2.c,tos.c,winnt.c ### */
 
@@ -1360,12 +1357,6 @@ E void FDECL(chdrive, (char *));
 E void NDECL(disable_ctrlP);
 E void NDECL(enable_ctrlP);
 # endif
-# if defined(MICRO) && !defined(WINNT)
-E void NDECL(get_scr_size);
-#  ifndef TOS
-E void FDECL(gotoxy, (int,int));
-#  endif
-# endif
 # ifdef TOS
 E int FDECL(_copyfile, (char *,char *));
 E int NDECL(kbhit);
@@ -1382,7 +1373,7 @@ E void FDECL(nt_regularize, (char *));
 E int NDECL((*nt_kbhit));
 E void FDECL(Delay, (int));
 # endif /* WIN32 */
-#endif /* MICRO || WIN32 */
+#endif /* WIN32 */
 
 /* ### mthrowu.c ### */
 
@@ -1542,15 +1533,15 @@ E int NDECL(dohistory);
 
 /* ### pcmain.c ### */
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 # ifdef CHDIR
 E void FDECL(chdirx, (char *,BOOLEAN_P));
 # endif /* CHDIR */
-#endif /* MICRO || WIN32 */
+#endif /* WIN32 */
 
 /* ### pcsys.c ### */
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 E void NDECL(flushout);
 E int NDECL(dosh);
 # ifdef MFLOPPY
@@ -1566,11 +1557,11 @@ E void FDECL(getreturn, (const char *));
 E void VDECL(msmsg, (const char *,...));
 # endif
 E FILE *FDECL(fopenp, (const char *,const char *));
-#endif /* MICRO || WIN32 */
+#endif /* WIN32 */
 
 /* ### pctty.c ### */
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 E void NDECL(gettty);
 E void FDECL(settty, (const char *));
 E void NDECL(setftty);
@@ -1578,13 +1569,10 @@ E void VDECL(error, (const char *,...));
 #if defined(TIMED_DELAY) && defined(_MSC_VER)
 E void FDECL(msleep, (unsigned));
 #endif
-#endif /* MICRO || WIN32 */
+#endif /* WIN32 */
 
 /* ### pcunix.c ### */
 
-#if defined(MICRO)
-E void FDECL(regularize, (char *));
-#endif /* MICRO */
 #if defined(PC_LOCKING)
 E void NDECL(getlock);
 #endif
@@ -2300,9 +2288,6 @@ E char *FDECL(version_string, (char *));
 E char *FDECL(getversionstring, (char *));
 E int NDECL(doversion);
 E int NDECL(doextversion);
-#ifdef MICRO
-E boolean FDECL(comp_times, (long));
-#endif
 E boolean FDECL(check_version, (struct version_info *,
 				const char *,BOOLEAN_P));
 E unsigned long FDECL(get_feature_notice_ver, (char *));
