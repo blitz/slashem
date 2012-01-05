@@ -19,14 +19,6 @@
 
 #ifdef TTY_GRAPHICS
 
-#ifdef MAC
-# define MICRO /* The Mac is a MICRO only for this file, not in general! */
-# ifdef THINK_C
-extern void msmsg(const char *,...);
-# endif
-#endif
-
-
 #ifndef NO_TERMS
 #include "tcap.h"
 #endif
@@ -150,7 +142,7 @@ boolean GFlag = FALSE;
 boolean HE_resets_AS;	/* see termcap.c */
 #endif
 
-#if defined(MICRO) || defined(WIN32CON)
+#if defined(WIN32CON)
 static const char to_continue[] = "to continue";
 #define getret() getreturn(to_continue)
 #else
@@ -826,7 +818,7 @@ tty_askname()
 #ifdef WIN32CON
 				ttyDisplay->curx--;
 #endif
-#if defined(MICRO) || defined(WIN32CON)
+#if defined(WIN32CON)
 # if defined(WIN32CON) || defined(MSDOS)
 				backsp();       /* \b is visible on NT */
 				(void) putchar(' ');
@@ -2749,13 +2741,13 @@ tty_raw_print_bold(str)
 {
     if(ttyDisplay) ttyDisplay->rawprint++;
     term_start_raw_bold();
-#if defined(MICRO) || defined(WIN32CON)
+#if defined(WIN32CON)
     msmsg("%s", str);
 #else
     (void) fputs(str, stdout);
 #endif
     term_end_raw_bold();
-#if defined(MICRO) || defined(WIN32CON)
+#if defined(WIN32CON)
     msmsg("\n");
 #else
     puts("");
