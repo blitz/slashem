@@ -33,14 +33,9 @@
 /* #define USE_VARARGS */	/* use <varargs.h> instead of <stdarg.h> */
 /* #define USE_OLDARGS */	/* don't use any variable argument facilites */
 
-#if defined(NHSTDC) || defined(ULTRIX_PROTO) || defined(MAC)
-# if !defined(USE_VARARGS) && !defined(USE_OLDARGS) && !defined(USE_STDARG)
-#   define USE_STDARG
-# endif
-#endif
+#define USE_STDARG
 
 #ifdef NEED_VARARGS		/* only define these if necessary */
-#ifdef USE_STDARG
 #include <stdarg.h>
 # define VA_DECL(typ1,var1)	(typ1 var1, ...) { va_list the_args;
 # define VA_DECL2(typ1,var1,typ2,var2)	\
@@ -50,33 +45,6 @@
 # define VA_ARGS		the_args
 # define VA_START(x)		va_start(the_args, x)
 # define VA_END()		va_end(the_args)
-# if defined(ULTRIX_PROTO) && !defined(_VA_LIST_)
-#  define _VA_LIST_	/* prevents multiple def in stdio.h */
-# endif
-#else
-# ifdef USE_VARARGS
-#include <varargs.h>
-#  define VA_DECL(typ1,var1)	(va_alist) va_dcl {\
-		va_list the_args; typ1 var1;
-#  define VA_DECL2(typ1,var1,typ2,var2)	(va_alist) va_dcl {\
-		va_list the_args; typ1 var1; typ2 var2;
-#  define VA_ARGS		the_args
-#  define VA_START(x)		va_start(the_args)
-#  define VA_INIT(var1,typ1)	var1 = va_arg(the_args, typ1)
-#  define VA_NEXT(var1,typ1)	var1 = va_arg(the_args,typ1)
-#  define VA_END()		va_end(the_args)
-# else
-#   define VA_ARGS	arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9
-#   define VA_DECL(typ1,var1)  (var1,VA_ARGS) typ1 var1; \
-	char *arg1,*arg2,*arg3,*arg4,*arg5,*arg6,*arg7,*arg8,*arg9; {
-#   define VA_DECL2(typ1,var1,typ2,var2)  (var1,var2,VA_ARGS) \
-	typ1 var1; typ2 var2;\
-	char *arg1,*arg2,*arg3,*arg4,*arg5,*arg6,*arg7,*arg8,*arg9; {
-#   define VA_START(x)
-#   define VA_INIT(var1,typ1)
-#   define VA_END()
-# endif
-#endif
 #endif /* NEED_VARARGS */
 
 #if defined(NHSTDC) || defined(MSDOS) || defined(MAC) || defined(ULTRIX_PROTO) || defined(__BEOS__)
