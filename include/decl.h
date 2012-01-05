@@ -20,9 +20,6 @@ E char *catmore;
 #endif	/* DEF_PAGER */
 
 E char SAVEF[];
-#ifdef MICRO
-E char SAVEP[];
-#endif
 
 E NEARDATA int bases[MAXOCLASSES];
 

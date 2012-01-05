@@ -115,9 +115,6 @@ char lock[PL_NSIZ+25];		/* long enough for username+-+name+.99 */
 #endif
 
 char SAVEF[SAVESIZE];	/* holds relative path of save file from playground */
-#ifdef MICRO
-char SAVEP[SAVESIZE];	/* holds path of directory for save file */
-#endif
 
 #ifdef HOLD_LOCKFILE_OPEN
 struct level_ftrack {

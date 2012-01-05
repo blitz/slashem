@@ -209,10 +209,7 @@ struct instance_flags {
 				/* (in iflags to allow restore after moving
 				 * to >2GB partition) */
 #endif
-#ifdef MICRO
-	boolean  BIOS;		/* use IBM or ST BIOS calls when appropriate */
-#endif
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 	boolean  rawio;		/* whether can use rawio (IOCTL call) */
 #endif
 #ifdef MAC_GRAPHICS_ENV

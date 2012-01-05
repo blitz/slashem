@@ -21,10 +21,6 @@ static int count_only;
 /*WAC boolean here to keep track of quit status*/
 boolean saverestore;
 
-#ifdef MICRO
-int dotcnt, dotrow;	/* also used in restore */
-#endif
-
 #ifdef ZEROCOMP
 STATIC_DCL void FDECL(bputc, (int));
 #endif
@@ -180,10 +176,6 @@ dosave0()
 	(void) signal(SIGINT, SIG_IGN);
 #endif
 
-#if defined(MICRO) && defined(MFLOPPY)
-	if (!saveDiskPrompt(0)) return 0;
-#endif
-
 	HUP if (iflags.window_inited) {
 	    uncompress_area(fq_save, SAVEF);
 	    fd = open_savefile();
@@ -222,14 +214,6 @@ dosave0()
 	if(iflags.window_inited)
 	    HUP clear_nhwindow(WIN_MESSAGE);
 
-#if defined(MICRO) && defined(TTY_GRAPHICS)
-	if (!strncmpi("tty", windowprocs.name, 3)) {
-	dotcnt = 0;
-	dotrow = 2;
-	curs(WIN_MAP, 1, 1);
-	  putstr(WIN_MAP, 0, "Saving:");
-	}
-#endif
 #ifdef MFLOPPY
 	/* make sure there is enough disk space */
 	if (iflags.checkspace) {
@@ -295,15 +279,6 @@ dosave0()
 	for(ltmp = (xchar)1; ltmp <= maxledgerno(); ltmp++) {
 		if (ltmp == ledger_no(&uz_save)) continue;
 		if (!(level_info[ltmp].flags & LFILE_EXISTS)) continue;
-#if defined(MICRO) && defined(TTY_GRAPHICS)
-		curs(WIN_MAP, 1 + dotcnt++, dotrow);
-		if (dotcnt >= (COLNO - 1)) {
-			dotrow++;
-			dotcnt = 0;
-		}
-		  putstr(WIN_MAP, 0, ".");
-		mark_synch();
-#endif
 		ofd = open_levelfile(ltmp, whynot);
 		if (ofd < 0) {
 		    HUP pline("%s", whynot);

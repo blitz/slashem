@@ -296,11 +296,6 @@ NEARDATA extern coord bhitpos;	/* place where throw or zap hits or stops */
 /* negative armor class is randomly weakened to prevent invulnerability */
 #define AC_VALUE(AC)	((AC) >= 0 ? (AC) : -rnd(-(AC)))
 
-#if defined(MICRO) && !defined(__DJGPP__)
-#define getuid() 1
-#define getlogin() ((char *)0)
-#endif /* MICRO */
-
 #if defined(OVERLAY)&&(defined(OVL0)||defined(OVL1)||defined(OVL2)||defined(OVL3)||defined(OVLB))
 # define USE_OVLx
 # define STATIC_DCL extern
