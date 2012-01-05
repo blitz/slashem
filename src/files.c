@@ -357,7 +357,7 @@ char *reasonbuf;
 			}
 			/* the paniclog entry gets the value of errno as well */
 			Sprintf(panicbuf1,"Invalid %s", fqn_prefix_names[prefcnt]);
-#if defined (NHSTDC) && !defined(NOTSTDC)
+#if defined (NHSTDC)
 			if (!(details = strerror(errno)))
 #endif
 			details = "";
@@ -1761,7 +1761,7 @@ const char *filename;
 	    /* e.g., problems when setuid NetHack can't search home
 	     * directory restricted to user */
 
-#if defined (NHSTDC) && !defined(NOTSTDC)
+#if defined (NHSTDC)
 	    if ((details = strerror(errno)) == 0)
 #endif
 		details = "";
