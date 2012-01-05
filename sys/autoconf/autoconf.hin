@@ -167,6 +167,9 @@
 /* Special Rogue-like levels */
 #undef REINCARNATION
 
+/* Define as the return type of signal handlers (`int' or `void'). */
+#undef RETSIGTYPE
+
 /* Show score on bottom line */
 #undef SCORE_ON_BOTL
 
@@ -234,3 +237,9 @@
 
 /* Zoutherner class */
 #undef ZOUTHERN
+
+/* Define to `long int' if <sys/types.h> does not define. */
+#undef off_t
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t

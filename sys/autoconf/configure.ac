@@ -40,6 +40,11 @@ fi
 dnl  ----- Figure out a C compiler to use; set @CC@
 AC_PROG_CC
 AC_PROG_CC_STDC
+
+AC_TYPE_SIGNAL
+AC_TYPE_OFF_T
+AC_TYPE_SIZE_T
+
 dnl AC_PROG_CC_C99
 NETHACK_PROG_CC_FOR_BUILD
 AC_SUBST(LFLAGS)
