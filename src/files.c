@@ -466,7 +466,7 @@ char errbuf[];
 	fq_lock = fqname(lock, LEVELPREFIX, 0);
 #endif
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 	/* Use O_TRUNC to force the file to be shortened if it already
 	 * exists and is currently longer.
 	 */
@@ -482,7 +482,7 @@ char errbuf[];
 #  endif
 	fd = open(fq_lock, O_WRONLY |O_CREAT | O_TRUNC | O_BINARY, FCMASK);
 # endif
-#else	/* MICRO */
+#else	/* WIN32 */
 # ifdef FILE_AREAS
 	fd = creat_area(FILE_AREA_LEVL, lock, FCMASK);
 # else
@@ -492,7 +492,7 @@ char errbuf[];
 	fd = creat(fq_lock, FCMASK);
 # endif
 # endif	/* FILE_AREAS */
-#endif /* MICRO || WIN32 */
+#endif /* WIN32 */
 
 	if (fd >= 0)
 	    level_info[lev].flags |= LFILE_EXISTS;
@@ -722,7 +722,7 @@ char errbuf[];
 	file = fqname(file, BONESPREFIX, 0);
 #endif
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 	/* Use O_TRUNC to force the file to be shortened if it already
 	 * exists and is currently longer.
 	 */
@@ -899,23 +899,6 @@ set_savefile_name()
 #endif
 	Strcat(SAVEF, ";1");
 #else
-# if defined(MICRO)
-	Strcpy(SAVEF, SAVEP);
-#  ifdef AMIGA
-	strncat(SAVEF, bbs_id, PATHLEN);
-#  endif
-	{
-		int i = strlen(SAVEP);
-#  ifdef AMIGA
-		/* plname has to share space with SAVEP and ".sav" */
-		(void)strncat(SAVEF, plname, FILENAME - i - 4);
-#  else
-		(void)strncat(SAVEF, plname, 8);
-#  endif
-		regularize(SAVEF+i);
-	}
-	Strcat(SAVEF, ".sav");
-# else
 #  ifndef FILE_AREAS
 #  if defined(WIN32)
 	/* Obtain the name of the logged on user and incorporate
@@ -932,7 +915,6 @@ set_savefile_name()
 	Sprintf(SAVEF, "%d%s", (int)getuid(), plname);
 	regularize(SAVEF);      /* avoid . or / in name */
 #  endif
-# endif	/* MICRO */
 #endif /* VMS   */
 }
 
@@ -946,7 +928,7 @@ int fd;
 #endif
 
 
-#if defined(WIZARD) && !defined(MICRO)
+#if defined(WIZARD)
 /* change pre-existing savefile name to indicate an error savefile */
 void
 set_error_savefile()
@@ -978,15 +960,10 @@ create_savefile()
 	int fd;
 
 #ifdef FILE_AREAS
-# ifdef MICRO
-	fd = open_area(FILE_AREA_SAVE, SAVEF,
-	  O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, FCMASK);
-# else
 	fd = creat_area(FILE_AREA_SAVE, SAVEF, FCMASK);
-# endif
 #else	/* FILE_AREAS */
 	fq_save = fqname(SAVEF, SAVEPREFIX, 0);
-# if defined(MICRO) || defined(WIN32)
+# if defined(WIN32)
 	fd = open(fq_save, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, FCMASK);
 # else
 #  ifdef MAC
@@ -994,7 +971,7 @@ create_savefile()
 #  else
 	fd = creat(fq_save, FCMASK);
 #  endif
-# endif /* MICRO */
+# endif /* WIN32 */
 #endif  /* FILE_AREAS */
 
 #if defined(VMS) && !defined(SECURE)
@@ -1700,7 +1677,7 @@ const char *filename;
 		}
 	}
 
-#if defined(MICRO) || defined(MAC) || defined(__BEOS__) || defined(WIN32)
+#if defined(MAC) || defined(__BEOS__) || defined(WIN32)
 	if ((fp = fopenp(fqname(configfile, CONFIGPREFIX, 0), "r"))
 								!= (FILE *)0)
 		return(fp);
@@ -1937,43 +1914,6 @@ char		*tmp_levels;
 		adjust_prefix(bufp, CONFIGPREFIX);
 	} else if (match_varname(buf, "TROUBLEDIR", 4)) {
 		adjust_prefix(bufp, TROUBLEPREFIX);
-#else /*NOCWD_ASSUMPTIONS*/
-# ifdef MICRO
-	} else if (match_varname(buf, "HACKDIR", 4)) {
-		(void) strncpy(hackdir, bufp, PATHLEN-1);
-#  ifdef MFLOPPY
-	} else if (match_varname(buf, "RAMDISK", 3)) {
-				/* The following ifdef is NOT in the wrong
-				 * place.  For now, we accept and silently
-				 * ignore RAMDISK */
-#   ifndef AMIGA
-		(void) strncpy(tmp_ramdisk, bufp, PATHLEN-1);
-#   endif
-#  endif
-	} else if (match_varname(buf, "LEVELS", 4)) {
-		(void) strncpy(tmp_levels, bufp, PATHLEN-1);
-
-	} else if (match_varname(buf, "SAVE", 4)) {
-#  ifdef MFLOPPY
-		extern	int saveprompt;
-#  endif
-		char *ptr;
-		if ((ptr = index(bufp, ';')) != 0) {
-			*ptr = '\0';
-#  ifdef MFLOPPY
-			if (*(ptr+1) == 'n' || *(ptr+1) == 'N') {
-				saveprompt = FALSE;
-			}
-#  endif
-		}
-# ifdef	MFLOPPY
-		else
-		    saveprompt = flags.asksavedisk;
-# endif
-
-		(void) strncpy(SAVEP, bufp, SAVESIZE-1);
-		append_slash(SAVEP);
-# endif /* MICRO */
 #endif /*NOCWD_ASSUMPTIONS*/
 
 	} else if (match_varname(buf, "NAME", 4)) {
@@ -2205,7 +2145,7 @@ const char *filename;
 #define tmp_levels	(char *)0
 #define tmp_ramdisk	(char *)0
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 #undef tmp_levels
 	char	tmp_levels[PATHLEN];
 # ifdef MFLOPPY
@@ -2229,7 +2169,7 @@ const char *filename;
 	if (!(fp = fopen_config_file(filename))) goto post_process;
 #endif
 
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 # ifdef MFLOPPY
 #  ifndef AMIGA
 	tmp_ramdisk[0] = 0;
@@ -2295,22 +2235,6 @@ clnt_process:
 	if (!found) goto post_process;
 #endif
 
-#if defined(MICRO) && !defined(NOCWD_ASSUMPTIONS)
-	/* should be superseded by fqn_prefix[] */
-# ifdef MFLOPPY
-	Strcpy(permbones, tmp_levels);
-#  ifndef AMIGA
-	if (tmp_ramdisk[0]) {
-		Strcpy(levels, tmp_ramdisk);
-		if (strcmp(permbones, levels))		/* if not identical */
-			ramdisk = TRUE;
-	} else
-#  endif /* AMIGA */
-		Strcpy(levels, tmp_levels);
-
-	Strcpy(bones, levels);
-# endif /* MFLOPPY */
-#endif /* MICRO */
 post_process:
 	if (!no_tilesets) {
 		for(i = 0; strlen(def_tilesets[i].name); i++) {
@@ -2375,7 +2299,7 @@ fopen_wizkit_file()
 #endif
 	}
 
-#if defined(MICRO) || defined(MAC) || defined(__BEOS__) || defined(WIN32)
+#if defined(MAC) || defined(__BEOS__) || defined(WIN32)
 	if ((fp = fopenp(fqname(wizkit, CONFIGPREFIX, 0), "r"))
 								!= (FILE *)0)
 		return(fp);
@@ -2504,7 +2428,7 @@ const char *dir;
 	    wait_synch();
 	}
 #endif  /* !UNIX && !VMS */
-#if defined(MICRO) || defined(WIN32)
+#if defined(WIN32)
 	char tmp[PATHLEN];
 
 # ifdef OS2_CODEVIEW   /* explicit path on opening for OS/2 */
@@ -2548,7 +2472,7 @@ const char *dir;
 		(void) close(fd);
 	} else		/* open succeeded */
 	    (void) close(fd);
-#else /* MICRO || WIN32*/
+#else /* WIN32*/
 
 # ifdef MAC
 	/* Create the record file, if necessary */
@@ -2562,7 +2486,7 @@ const char *dir;
 	if (fd != -1) macclose (fd);
 # endif /* MAC */
 
-#endif /* MICRO || WIN32*/
+#endif /* WIN32*/
 }
 
 /* ----------  END SCOREBOARD CREATION ----------- */
