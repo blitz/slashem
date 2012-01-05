@@ -151,8 +151,8 @@ OMONOBJ = monst.o objects.o
 CNAMING = $(srcdir)/../src/drawing.c $(srcdir)/../src/decl.c $(CMONOBJ)
 ONAMING = drawing.o decl.o $(OMONOBJ)
 # dynamic memory allocation
-CALLOC = panic.c
-OALLOC = panic.o
+CALLOC = panic.c alloc.c
+OALLOC = panic.o alloc.o
 
 # object files for makedefs
 MAKEOBJS = makedefs.o $(OMONOBJ) $(OALLOC)
@@ -216,6 +216,8 @@ lintdefs:
 # support code used by several of the utility programs (but not makedefs)
 panic.o:     panic.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c $< -o $@
+alloc.o: $(srcdir)/../src/alloc.c $(CONFIG_H)
+	$(CC) $(CFLAGS) -c $(srcdir)/../src/alloc.c -o $@
 
 #	dependencies for lev_comp
 #

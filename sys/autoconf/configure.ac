@@ -9,6 +9,8 @@ AC_CONFIG_SRCDIR(slamfaq.txt)
 AC_SUBST(SRCDIR,[../$srcdir/src])
 AC_CONFIG_AUX_DIR(sys/autoconf)
 
+AC_SUBST(EXTRA_UNSHARE)
+
 dnl  ----- Precious variables
 AC_ARG_VAR(CC, [C compiler])
 AC_ARG_VAR(CHGRP, [sets GAMEUID (set this to true as a no op)])
