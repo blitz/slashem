@@ -4201,6 +4201,7 @@ case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
 
 
 
+
 if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
 	if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
@@ -5378,6 +5379,7 @@ if test -n "$NETHACK__LIBPNG_CFLAGS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_NETHACK__LIBPNG_CFLAGS=`$PKG_CONFIG --cflags "libpng >= 1.2.4" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
 fi
@@ -5394,6 +5396,7 @@ if test -n "$NETHACK__LIBPNG_LIBS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_NETHACK__LIBPNG_LIBS=`$PKG_CONFIG --libs "libpng >= 1.2.4" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
 fi
@@ -5413,9 +5416,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        NETHACK__LIBPNG_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libpng >= 1.2.4" 2>&1`
+	        NETHACK__LIBPNG_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libpng >= 1.2.4" 2>&1`
         else
-	        NETHACK__LIBPNG_PKG_ERRORS=`$PKG_CONFIG --print-errors "libpng >= 1.2.4" 2>&1`
+	        NETHACK__LIBPNG_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libpng >= 1.2.4" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$NETHACK__LIBPNG_PKG_ERRORS" >&5
@@ -5879,6 +5882,7 @@ if test -n "$NETHACK_PROXY_CFLAGS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_NETHACK_PROXY_CFLAGS=`$PKG_CONFIG --cflags "nhproxy >= 0.9.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
 fi
@@ -5895,6 +5899,7 @@ if test -n "$NETHACK_PROXY_LIBS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_NETHACK_PROXY_LIBS=`$PKG_CONFIG --libs "nhproxy >= 0.9.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
 fi
@@ -5914,9 +5919,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "nhproxy >= 0.9.0" 2>&1`
+	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "nhproxy >= 0.9.0" 2>&1`
         else
-	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --print-errors "nhproxy >= 0.9.0" 2>&1`
+	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "nhproxy >= 0.9.0" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$NETHACK_PROXY_PKG_ERRORS" >&5
@@ -5931,7 +5936,6 @@ installed software in a non-standard prefix.
 Alternatively, you may set the environment variables NETHACK_PROXY_CFLAGS
 and NETHACK_PROXY_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
-
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
@@ -5947,7 +5951,6 @@ See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details" "$LINENO" 5; }
-
 else
 	NETHACK_PROXY_CFLAGS=$pkg_cv_NETHACK_PROXY_CFLAGS
 	NETHACK_PROXY_LIBS=$pkg_cv_NETHACK_PROXY_LIBS
@@ -5971,6 +5974,7 @@ if test -n "$NETHACK_PROXY_CFLAGS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_NETHACK_PROXY_CFLAGS=`$PKG_CONFIG --cflags "nhproxy >= 0.9.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
 fi
@@ -5987,6 +5991,7 @@ if test -n "$NETHACK_PROXY_LIBS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_NETHACK_PROXY_LIBS=`$PKG_CONFIG --libs "nhproxy >= 0.9.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
 fi
@@ -6006,9 +6011,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "nhproxy >= 0.9.0" 2>&1`
+	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "nhproxy >= 0.9.0" 2>&1`
         else
-	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --print-errors "nhproxy >= 0.9.0" 2>&1`
+	        NETHACK_PROXY_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "nhproxy >= 0.9.0" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$NETHACK_PROXY_PKG_ERRORS" >&5
