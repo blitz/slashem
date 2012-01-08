@@ -15,12 +15,6 @@ static boolean no_repeat = FALSE;
 
 static char *FDECL(You_buf, (int));
 
-/*VARARGS1*/
-/* Note that these declarations rely on knowledge of the internals
- * of the variable argument handling stuff in "tradstdc.h"
- */
-
-#if defined(USE_STDARG) || defined(USE_VARARGS)
 static void FDECL(vpline, (const char *, va_list));
 
 void
@@ -31,24 +25,10 @@ pline VA_DECL(const char *, line)
 	VA_END();
 }
 
-# ifdef USE_STDARG
 static void
-vpline(const char *line, va_list the_args) {
-# else
-static void
-vpline(line, the_args) const char *line; va_list the_args; {
-# endif
-
-#else	/* USE_STDARG | USE_VARARG */
-
-#define vpline pline
-
-void
-pline VA_DECL(const char *, line)
-#endif	/* USE_STDARG | USE_VARARG */
-
+vpline(const char *line, va_list the_args)
+{
 	char pbuf[BUFSZ];
-/* Do NOT use VA_START and VA_END in here... see above */
 
 	if (!line || !*line) return;
 	if (index(line, '%')) {
@@ -68,7 +48,6 @@ pline VA_DECL(const char *, line)
 	putstr(WIN_MESSAGE, 0, line);
 }
 
-/*VARARGS1*/
 void
 Norep VA_DECL(const char *, line)
 	VA_START(line);
@@ -110,7 +89,6 @@ free_youbuf()
 #define YouMessage(pointer,prefix,text) \
  strcat((YouPrefix(pointer, prefix, text), pointer), text)
 
-/*VARARGS1*/
 void
 You VA_DECL(const char *, line)
 	char *tmp;
@@ -120,7 +98,6 @@ You VA_DECL(const char *, line)
 	VA_END();
 }
 
-/*VARARGS1*/
 void
 Your VA_DECL(const char *,line)
 	char *tmp;
@@ -130,7 +107,6 @@ Your VA_DECL(const char *,line)
 	VA_END();
 }
 
-/*VARARGS1*/
 void
 You_feel VA_DECL(const char *,line)
 	char *tmp;
@@ -141,7 +117,6 @@ You_feel VA_DECL(const char *,line)
 }
 
 
-/*VARARGS1*/
 void
 You_cant VA_DECL(const char *,line)
 	char *tmp;
@@ -151,7 +126,6 @@ You_cant VA_DECL(const char *,line)
 	VA_END();
 }
 
-/*VARARGS1*/
 void
 pline_The VA_DECL(const char *,line)
 	char *tmp;
@@ -161,7 +135,6 @@ pline_The VA_DECL(const char *,line)
 	VA_END();
 }
 
-/*VARARGS1*/
 void
 There VA_DECL(const char *,line)
 	char *tmp;
@@ -171,7 +144,6 @@ There VA_DECL(const char *,line)
 	VA_END();
 }
 
-/*VARARGS1*/
 void
 You_hear VA_DECL(const char *,line)
 	char *tmp;
@@ -187,7 +159,6 @@ You_hear VA_DECL(const char *,line)
 	VA_END();
 }
 
-/*VARARGS1*/
 void
 verbalize VA_DECL(const char *,line)
 	char *tmp;
@@ -202,12 +173,6 @@ verbalize VA_DECL(const char *,line)
 	VA_END();
 }
 
-/*VARARGS1*/
-/* Note that these declarations rely on knowledge of the internals
- * of the variable argument handling stuff in "tradstdc.h"
- */
-
-#if defined(USE_STDARG) || defined(USE_VARARGS)
 static void FDECL(vraw_printf,(const char *,va_list));
 
 void
@@ -218,21 +183,9 @@ raw_printf VA_DECL(const char *, line)
 	VA_END();
 }
 
-# ifdef USE_STDARG
 static void
-vraw_printf(const char *line, va_list the_args) {
-# else
-static void
-vraw_printf(line, the_args) const char *line; va_list the_args; {
-# endif
-
-#else  /* USE_STDARG | USE_VARARG */
-
-void
-raw_printf VA_DECL(const char *, line)
-#endif
-/* Do NOT use VA_START and VA_END in here... see above */
-
+vraw_printf(const char *line, va_list the_args)
+{
 	if(!index(line, '%'))
 	    raw_print(line);
 	else {
@@ -242,8 +195,6 @@ raw_printf VA_DECL(const char *, line)
 	}
 }
 
-
-/*VARARGS1*/
 void
 impossible VA_DECL(const char *, s)
 	VA_START(s);
