@@ -6,7 +6,6 @@
 #define TRADSTDC_H
 
 #define NHSTDC
-#define USE_STDARG
 
 #ifdef NEED_VARARGS		/* only define these if necessary */
 #include <stdarg.h>
