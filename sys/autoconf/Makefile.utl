@@ -167,7 +167,7 @@ DGNCOMPOBJS = dgn_yacc.o dgn_lex.o dgn_main.o $(OALLOC)
 RECOVOBJS = recover.o
 
 # object files for the data librarian
-DLBOBJS = dlb_main.o $(OBJDIR)/dlb.o $(OALLOC)
+DLBOBJS = dlb_main.o dlb.o $(OALLOC)
 
 # flags for creating distribution versions of sys/share/*_lex.c, using
 # a more portable flex skeleton, which is not included in the distribution.
