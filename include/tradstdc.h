@@ -45,8 +45,6 @@
 typedef genericptr genericptr_t;	/* (void *) or (char *) */
 #endif
 
-#define WIDENED_PROTOTYPES
-
 /*
  * Allow gcc2 to check parameters of printf-like calls with -Wformat;
  * append this to a prototype declaration (see pline() in extern.h).
