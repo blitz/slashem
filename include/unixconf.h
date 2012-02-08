@@ -212,18 +212,6 @@
 
 #define MAIL			/* Deliver mail during the game */
 
-/* The Andrew Message System does mail a little differently from normal
- * UNIX.  Mail is deposited in the user's own directory in ~/Mailbox
- * (another directory).  MAILBOX is the element that will be added on to
- * the user's home directory path to generate the Mailbox path - just in
- * case other Andrew sites do it differently from CMU.
- *
- *		dan lovinger
- *		dl2n+@andrew.cmu.edu (dec 19 1989)
- */
-
-/* #define AMS */		/* use Andrew message system for mail */
-
 /* NO_MAILREADER is for kerberos authenticating filesystems where it is
  * essentially impossible to securely exec child processes, like mail
  * readers, when the game is running under a special token.
@@ -235,15 +223,11 @@
 
 #ifdef	MAIL
 # if defined(BSD) || defined(ULTRIX)
-#  ifdef AMS
-#define AMS_MAILBOX	"/Mailbox"
-#  else
 #   if defined(__FreeBSD__) || defined(__OpenBSD__)
 #define DEF_MAILREADER "/usr/bin/mail"
 #   else
 #define DEF_MAILREADER	"/usr/ucb/Mail"
 #   endif
-#  endif
 #else
 # if (defined(SYSV) || defined(DGUX) || defined(HPUX)) && !defined(LINUX)
 #  if defined(M_XENIX)
