@@ -73,10 +73,16 @@ getmailstatus()
 {
 	if(!mailbox && !(mailbox = nh_getenv("MAIL"))) {
 #  ifdef MAILPATH
-		const char *pw_name = getpwuid(getuid())->pw_name;
-		mailbox = (char *) alloc(sizeof(MAILPATH)+strlen(pw_name));
-		Strcpy(mailbox, MAILPATH);
-		Strcat(mailbox, pw_name);
+		struct passwd *pw_entry = getpwuid(getuid());
+		if (pw_entry) {
+			const char *pw_name = pw_entry->pw_name;
+			mailbox = (char *) alloc(sizeof(MAILPATH)+strlen(pw_name));
+			Strcpy(mailbox, MAILPATH);
+			Strcat(mailbox, pw_name);
+		} else {
+			pline("Cannot get user name.");
+			mailbox = 0;
+		}
 #  else
 		return;
 #  endif
